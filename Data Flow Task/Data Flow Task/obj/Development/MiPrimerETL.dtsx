@@ -1,0 +1,2366 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/27/2020 9:03:53 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-6SMTV7A"
+  DTS:CreatorName="DESKTOP-6SMTV7A\Carlos"
+  DTS:DTSID="{BC5CAA1E-9B94-4437-BDC1-6E4658098FEF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.132"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{F0328E41-115E-4922-8567-FCB2C0022382}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-6SMTV7A.DWNorthWind]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{F8647D06-6AF6-4CF7-8BC9-ACB68B223FA6}"
+      DTS:ObjectName="DESKTOP-6SMTV7A.DWNorthWind">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-6SMTV7A;Initial Catalog=DWNorthWind;Integrated Security=True;Application Name=SSIS-Package1-{F8647D06-6AF6-4CF7-8BC9-ACB68B223FA6}DESKTOP-6SMTV7A.DWNorthWind;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-6SMTV7A.NORTHWND]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{00B697E5-7C4C-455B-8914-7BC01DE2B5A3}"
+      DTS:ObjectName="DESKTOP-6SMTV7A.NORTHWND">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DESKTOP-6SMTV7A;Initial Catalog=NORTHWND;Integrated Security=True;Application Name=SSIS-Package1-{00B697E5-7C4C-455B-8914-7BC01DE2B5A3}DESKTOP-6SMTV7A.NORTHWND;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{93B4C104-A6CD-4DB9-8184-F829CE325968}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CantidadDeProductosDescontinuados">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F047D5F6-48BD-435B-8F9A-2121B4A99C60}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CargarProductosEnFabricacion">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Cargar DimProducts"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{28B9BD6B-5DDE-4256-A590-A054DD9C55B9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Cargar DimProducts"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Cargar DimProducts\Contar Productos Descontinuados"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="Contar Productos Descontinuados">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::CantidadDeProductosDescontinuados</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Contar Productos Descontinuados.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Contar Productos Descontinuados.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Cargar DimProducts\Contar Productos Descontinuados.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Contar Productos en Fabricacion"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="Contar Productos en Fabricacion">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::CargarProductosEnFabricacion</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Contar Productos en Fabricacion.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Contar Productos en Fabricacion.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\Cargar DimProducts\Contar Productos en Fabricacion.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Loads data into an ADO.NET-compliant database that uses a database table or view. Load data into a new or existing table. For example, use an ADO.NET provider for ODBC to load data into an ODBC destination."
+              name="Grabar en la Tabla DimProducts"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The Destination database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."DimProducts"</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the number of rows per batch. The default is 0 which uses the same size as SSIS internal buffer. "
+                  expressionType="Notify"
+                  name="BatchSize">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out. A value of 0 indicates infinite time-out. "
+                  expressionType="Notify"
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether to use the SqlBulkCopy interface to improve the performance of bulk insert operations. Only certain providers support this interface."
+                  expressionType="Notify"
+                  name="UseBulkInsertWhenPossible">true</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ADONETDestination</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-6SMTV7A.DWNorthWind]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-6SMTV7A.DWNorthWind]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input]"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="ADO NET Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[ProductID]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductID]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[SupplierID]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[SupplierID]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[CategoryID]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[CategoryID]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[QuantityPerUnit]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[QuantityPerUnit]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitPrice]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[UnitsInStock]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsInStock]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[UnitsOnOrder]"
+                      cachedDataType="i2"
+                      cachedName="UnitsOnOrder"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[UnitsOnOrder]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsOnOrder]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[ReorderLevel]"
+                      cachedDataType="i2"
+                      cachedName="ReorderLevel"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[ReorderLevel]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ReorderLevel]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[Discontinued]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[Discontinued]" />
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[ProductName]"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[ProductID]"
+                      dataType="i4"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      name="ProductName" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[SupplierID]"
+                      dataType="i4"
+                      name="SupplierID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[CategoryID]"
+                      dataType="i4"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      name="QuantityPerUnit" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[UnitPrice]"
+                      dataType="numeric"
+                      name="UnitPrice"
+                      precision="19"
+                      scale="255" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[UnitsInStock]"
+                      dataType="i2"
+                      name="UnitsInStock" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[UnitsOnOrder]"
+                      dataType="i2"
+                      name="UnitsOnOrder" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[ReorderLevel]"
+                      dataType="i2"
+                      name="ReorderLevel" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[Discontinued]"
+                      dataType="bool"
+                      name="Discontinued" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[EstratoQuantityPerUnit]"
+                      dataType="wstr"
+                      length="1"
+                      name="EstratoQuantityPerUnit" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[EstratoUnitPrice]"
+                      dataType="wstr"
+                      length="1"
+                      name="EstratoUnitPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[EstratoUnitsInStock]"
+                      dataType="wstr"
+                      length="1"
+                      name="EstratoUnitsInStock" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input].ExternalColumns[EstratoUnitsOnOrder]"
+                      dataType="wstr"
+                      length="1"
+                      name="EstratoUnitsOnOrder" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Outputs[ADO NET Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="ADO NET Destination Error Output"
+                  synchronousInputId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Outputs[ADO NET Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Outputs[ADO NET Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Leer Tabla de Products"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
+              name="Leer Tabla de Products"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement used by the component to extract data."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select
+		pro.ProductID, 
+		pro.ProductName AS ProductNameAsLowerCase, 
+		pro.SupplierID,
+		pro.CategoryID, 
+		pro.QuantityPerUnit,
+		pro.UnitPrice, 
+		pro.UnitsInStock,
+		pro.UnitsOnOrder,
+		pro.ReorderLevel, 
+		pro.Discontinued
+
+from [Products] pro;</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">30</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
+                  name="AllowImplicitStringConversion">true</property>
+                <property
+                  dataType="System.String"
+                  description="The Source database table name."
+                  expressionType="Notify"
+                  name="TableOrViewName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specify the mode to retrieve external column information"
+                  name="AccessMode"
+                  typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">2</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Cargar DimProducts\Leer Tabla de Products.Connections[IDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-6SMTV7A.NORTHWND]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-6SMTV7A.NORTHWND]"
+                  description="Managed connection manager"
+                  name="IDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output]"
+                  name="ADO NET Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[ProductID]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductID]"
+                      name="ProductID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[ProductNameAsLowerCase]"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]"
+                      name="ProductNameAsLowerCase"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[SupplierID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[SupplierID]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[SupplierID]"
+                      name="SupplierID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[CategoryID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[CategoryID]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[CategoryID]"
+                      name="CategoryID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[QuantityPerUnit]"
+                      length="20"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[UnitPrice]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitPrice]"
+                      name="UnitPrice"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[UnitsInStock]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsInStock]"
+                      name="UnitsInStock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsOnOrder]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[UnitsOnOrder]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsOnOrder]"
+                      name="UnitsOnOrder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ReorderLevel]"
+                      dataType="i2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[ReorderLevel]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ReorderLevel]"
+                      name="ReorderLevel"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[Discontinued]"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]"
+                      name="Discontinued"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[ProductID]"
+                      dataType="i4"
+                      name="ProductID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[ProductNameAsLowerCase]"
+                      dataType="wstr"
+                      length="40"
+                      name="ProductNameAsLowerCase" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[SupplierID]"
+                      dataType="i4"
+                      name="SupplierID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[CategoryID]"
+                      dataType="i4"
+                      name="CategoryID" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      name="QuantityPerUnit" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[UnitPrice]"
+                      dataType="cy"
+                      name="UnitPrice" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[UnitsInStock]"
+                      dataType="i2"
+                      name="UnitsInStock" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[UnitsOnOrder]"
+                      dataType="i2"
+                      name="UnitsOnOrder" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[ReorderLevel]"
+                      dataType="i2"
+                      name="ReorderLevel" />
+                    <externalMetadataColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].ExternalColumns[Discontinued]"
+                      dataType="bool"
+                      name="Discontinued" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output]"
+                  isErrorOut="true"
+                  name="ADO NET Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ProductID]"
+                      name="ProductID" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ProductNameAsLowerCase]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ProductNameAsLowerCase]"
+                      name="ProductNameAsLowerCase" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[SupplierID]"
+                      name="SupplierID" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[CategoryID]"
+                      name="CategoryID" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[UnitPrice]"
+                      name="UnitPrice" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[UnitsInStock]"
+                      name="UnitsInStock" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[UnitsOnOrder]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[UnitsOnOrder]"
+                      name="UnitsOnOrder" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ReorderLevel]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ReorderLevel]"
+                      name="ReorderLevel" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[Discontinued]"
+                      name="Discontinued" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos"
+              componentClassID="Microsoft.Merge"
+              contactInfo="Merge;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple sorted data flows into one sorted data flow. Unlike the Merge Join, all rows flow to the output. For example, combine two sorted lists of customers into a single sorted list. If sorting is not important, use the Union All transformation. "
+              name="Mezcle los elementos despues del conteo de productos"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1]"
+                  name="Merge Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[ProductNameAsLowerCase]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductNameAsLowerCase"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductNameAsLowerCase]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductNameAsLowerCase]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[SupplierID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[SupplierID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[CategoryID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[QuantityPerUnit]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[QuantityPerUnit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitPrice]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitsInStock]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsInStock]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[UnitsOnOrder]"
+                      cachedDataType="i2"
+                      cachedName="UnitsOnOrder"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitsOnOrder]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsOnOrder]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[ReorderLevel]"
+                      cachedDataType="i2"
+                      cachedName="ReorderLevel"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ReorderLevel]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ReorderLevel]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[Discontinued]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[Discontinued]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductName]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductName]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2]"
+                  name="Merge Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[ProductNameAsLowerCase]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductNameAsLowerCase"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductNameAsLowerCase]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductNameAsLowerCase]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[SupplierID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[SupplierID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[CategoryID]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[QuantityPerUnit]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[QuantityPerUnit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitPrice]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitsInStock]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsInStock]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[UnitsOnOrder]"
+                      cachedDataType="i2"
+                      cachedName="UnitsOnOrder"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitsOnOrder]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsOnOrder]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[ReorderLevel]"
+                      cachedDataType="i2"
+                      cachedName="ReorderLevel"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ReorderLevel]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ReorderLevel]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[Discontinued]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[Discontinued]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductName]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductName]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1]"
+                  isSorted="true"
+                  name="Merge Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductID]"
+                      name="ProductID"
+                      sortKeyPosition="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductNameAsLowerCase]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductNameAsLowerCase]"
+                      name="ProductNameAsLowerCase" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[SupplierID]"
+                      name="SupplierID" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[CategoryID]"
+                      name="CategoryID" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitPrice]"
+                      name="UnitPrice" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsInStock]"
+                      name="UnitsInStock" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsOnOrder]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[UnitsOnOrder]"
+                      name="UnitsOnOrder" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ReorderLevel]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ReorderLevel]"
+                      name="ReorderLevel" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[Discontinued]"
+                      name="Discontinued" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1].Columns[ProductName]"
+                      name="ProductName" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordenar Productos Descontinuados"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[ProductNameAsLowerCase]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductNameAsLowerCase"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[SupplierID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[QuantityPerUnit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsInStock]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[UnitsOnOrder]"
+                      cachedDataType="i2"
+                      cachedName="UnitsOnOrder"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsOnOrder]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[ReorderLevel]"
+                      cachedDataType="i2"
+                      cachedName="ReorderLevel"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ReorderLevel]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output].Columns[ProductName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductID]"
+                      name="ProductID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductNameAsLowerCase]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductNameAsLowerCase]"
+                      name="ProductNameAsLowerCase">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[SupplierID]"
+                      name="SupplierID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[SupplierID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[CategoryID]"
+                      name="CategoryID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[CategoryID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[QuantityPerUnit]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitPrice]"
+                      name="UnitPrice">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitsInStock]"
+                      name="UnitsInStock">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsInStock]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitsOnOrder]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[UnitsOnOrder]"
+                      name="UnitsOnOrder">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsOnOrder]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ReorderLevel]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ReorderLevel]"
+                      name="ReorderLevel">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ReorderLevel]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[Discontinued]"
+                      name="Discontinued">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output].Columns[ProductName]"
+                      name="ProductName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output].Columns[ProductName]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Ordenar Productos en Fabricacion"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[ProductID]"
+                      cachedDataType="i4"
+                      cachedName="ProductID"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[ProductNameAsLowerCase]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductNameAsLowerCase"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[SupplierID]"
+                      cachedDataType="i4"
+                      cachedName="SupplierID"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[SupplierID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[CategoryID]"
+                      cachedDataType="i4"
+                      cachedName="CategoryID"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[CategoryID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[QuantityPerUnit]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="QuantityPerUnit"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[QuantityPerUnit]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[UnitPrice]"
+                      cachedDataType="cy"
+                      cachedName="UnitPrice"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitPrice]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[UnitsInStock]"
+                      cachedDataType="i2"
+                      cachedName="UnitsInStock"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsInStock]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[UnitsOnOrder]"
+                      cachedDataType="i2"
+                      cachedName="UnitsOnOrder"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsOnOrder]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[ReorderLevel]"
+                      cachedDataType="i2"
+                      cachedName="ReorderLevel"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ReorderLevel]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input].Columns[ProductName]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductName"
+                      lineageId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output].Columns[ProductName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductID]"
+                      name="ProductID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductNameAsLowerCase]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductNameAsLowerCase]"
+                      name="ProductNameAsLowerCase">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[SupplierID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[SupplierID]"
+                      name="SupplierID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[SupplierID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[CategoryID]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[CategoryID]"
+                      name="CategoryID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[CategoryID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[QuantityPerUnit]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[QuantityPerUnit]"
+                      name="QuantityPerUnit">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[QuantityPerUnit]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitPrice]"
+                      dataType="cy"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitPrice]"
+                      name="UnitPrice">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitPrice]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitsInStock]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitsInStock]"
+                      name="UnitsInStock">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsInStock]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitsOnOrder]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[UnitsOnOrder]"
+                      name="UnitsOnOrder">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[UnitsOnOrder]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ReorderLevel]"
+                      dataType="i2"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ReorderLevel]"
+                      name="ReorderLevel">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ReorderLevel]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[Discontinued]"
+                      dataType="bool"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[Discontinued]"
+                      name="Discontinued">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductName]"
+                      dataType="wstr"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output].Columns[ProductName]"
+                      name="ProductName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output].Columns[ProductName]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\ProductName a Mayusculas"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="ProductName a Mayusculas"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\ProductName a Mayusculas.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\ProductName a Mayusculas.Inputs[Derived Column Input].Columns[ProductNameAsLowerCase]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="ProductNameAsLowerCase"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Cargar DimProducts\ProductName a Mayusculas.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output].Columns[ProductName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="40"
+                      lineageId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output].Columns[ProductName]"
+                      name="ProductName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[UPPER](#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[ProductNameAsLowerCase]})</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">UPPER(ProductNameAsLowerCase)</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Cargar DimProducts\ProductName a Mayusculas.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Cargar DimProducts\Separe products por Discontinued"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Separe products por Discontinued"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Cargar DimProducts\Separe products por Discontinued.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Cargar DimProducts\Separe products por Discontinued.Inputs[Conditional Split Input].Columns[Discontinued]"
+                      cachedDataType="bool"
+                      cachedName="Discontinued"
+                      lineageId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Descontinuado]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Descontinuado"
+                  synchronousInputId="Package\Cargar DimProducts\Separe products por Discontinued.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output].Columns[Discontinued]} ==  TRUE </property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Discontinued ==  TRUE </property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[En fabricacion]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="En fabricacion"
+                  synchronousInputId="Package\Cargar DimProducts\Separe products por Discontinued.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Cargar DimProducts\Separe products por Discontinued.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Cargar DimProducts.Paths[ADO NET Source Output]"
+              endId="Package\Cargar DimProducts\ProductName a Mayusculas.Inputs[Derived Column Input]"
+              name="ADO NET Source Output"
+              startId="Package\Cargar DimProducts\Leer Tabla de Products.Outputs[ADO NET Source Output]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Derived Column Output]"
+              endId="Package\Cargar DimProducts\Separe products por Discontinued.Inputs[Conditional Split Input]"
+              name="Derived Column Output"
+              startId="Package\Cargar DimProducts\ProductName a Mayusculas.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Descontinuado]"
+              endId="Package\Cargar DimProducts\Contar Productos Descontinuados.Inputs[Row Count Input 1]"
+              name="Descontinuado"
+              startId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[Descontinuado]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[En fabricacion]"
+              endId="Package\Cargar DimProducts\Contar Productos en Fabricacion.Inputs[Row Count Input 1]"
+              name="En fabricacion"
+              startId="Package\Cargar DimProducts\Separe products por Discontinued.Outputs[En fabricacion]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Merge Output 1]"
+              endId="Package\Cargar DimProducts\Grabar en la Tabla DimProducts.Inputs[ADO NET Destination Input]"
+              name="Merge Output 1"
+              startId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Outputs[Merge Output 1]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Row Count Output 1]"
+              endId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Inputs[Sort Input]"
+              name="Row Count Output 1"
+              startId="Package\Cargar DimProducts\Contar Productos en Fabricacion.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Row Count Output 11]"
+              endId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Inputs[Sort Input]"
+              name="Row Count Output 1"
+              startId="Package\Cargar DimProducts\Contar Productos Descontinuados.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Sort Output]"
+              endId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 1]"
+              name="Sort Output"
+              startId="Package\Cargar DimProducts\Ordenar Productos Descontinuados.Outputs[Sort Output]" />
+            <path
+              refId="Package\Cargar DimProducts.Paths[Sort Output1]"
+              endId="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos.Inputs[Merge Input 2]"
+              name="Sort Output"
+              startId="Package\Cargar DimProducts\Ordenar Productos en Fabricacion.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Pausa"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{7BA92412-60CF-47B7-B18C-2B02B714A723}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Pausa"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{62E288E7-B49E-47E9-84E5-F3E2A2A7FDF8}"
+      DTS:From="Package\Cargar DimProducts"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Pausa" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Cargar DimProducts"
+          TopLeft="57,83" />
+        <AnnotationLayout
+          Text="Este paquete carga una tabla de Products la base de datos NorthWind &#xD;&#xA;con la de DWNothWind de DmProducts"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="404,60"
+          Id="c64adc6a-7317-43bf-ba8e-c5fa9531c5e5"
+          TopLeft="182,15" />
+        <NodeLayout
+          Size="110,42"
+          Id="Package\Pausa"
+          TopLeft="62,183" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="146.5,125">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-29.5,58"
+              Start="0,0"
+              End="-29.5,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25"
+                    Point2="0,29"
+                    Point3="-4,29" />
+                  <mssgle:LineSegment
+                    End="-25.5,29" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-25.5,29"
+                    Point2="-29.5,29"
+                    Point3="-29.5,33" />
+                  <mssgle:LineSegment
+                    End="-29.5,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Cargar DimProducts">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="193,42"
+          Id="Package\Cargar DimProducts\Leer Tabla de Products"
+          TopLeft="139.022727272727,87" />
+        <NodeLayout
+          Size="216,42"
+          Id="Package\Cargar DimProducts\ProductName a Mayusculas"
+          TopLeft="130.022727272727,182.25" />
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[ADO NET Source Output]"
+          TopLeft="236.772727272727,129">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.25"
+              Start="0,0"
+              End="0,45.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="245,42"
+          Id="Package\Cargar DimProducts\Separe products por Discontinued"
+          TopLeft="126.022727272727,286" />
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Derived Column Output]"
+          TopLeft="238.022727272727,224.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.5,61.75"
+              Start="0,0"
+              End="10.5,54.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.875" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.875"
+                    Point2="0,30.875"
+                    Point3="4,30.875" />
+                  <mssgle:LineSegment
+                    End="6.5,30.875" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.5,30.875"
+                    Point2="10.5,30.875"
+                    Point3="10.5,34.875" />
+                  <mssgle:LineSegment
+                    End="10.5,54.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="246,42"
+          Id="Package\Cargar DimProducts\Contar Productos Descontinuados"
+          TopLeft="7.55050505050505,377.638888888889" />
+        <NodeLayout
+          Size="240,42"
+          Id="Package\Cargar DimProducts\Contar Productos en Fabricacion"
+          TopLeft="324.911616161616,377.777777777778" />
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Descontinuado]"
+          TopLeft="209.022727272727,328">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-78.4722222222222,49.6388888888889"
+              Start="0,0"
+              End="-78.4722222222222,42.1388888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.0487969721546" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.0487969721546"
+                    Point2="0,20.0487969721546"
+                    Point3="-4,20.0487969721546" />
+                  <mssgle:LineSegment
+                    End="-74.4722222222222,20.0487969721546" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-74.4722222222222,20.0487969721546"
+                    Point2="-78.4722222222222,20.0487969721546"
+                    Point3="-78.4722222222222,24.0487969721546" />
+                  <mssgle:LineSegment
+                    End="-78.4722222222222,42.1388888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-72.2881423611111,25.0487969721546,66.1040625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[En fabricacion]"
+          TopLeft="288.022727272727,328">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="156.888888888889,49.7777777777778"
+              Start="0,0"
+              End="156.888888888889,42.2777777777778">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.1048932143823" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.1048932143823"
+                    Point2="0,20.1048932143823"
+                    Point3="4,20.1048932143823" />
+                  <mssgle:LineSegment
+                    End="152.888888888889,20.1048932143823" />
+                  <mssgle:CubicBezierSegment
+                    Point1="152.888888888889,20.1048932143823"
+                    Point2="156.888888888889,20.1048932143823"
+                    Point3="156.888888888889,24.1048932143823" />
+                  <mssgle:LineSegment
+                    End="156.888888888889,42.2777777777778" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="47.1575108506944,25.1048932143823,62.5738671875,9.7978515625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="236,42"
+          Id="Package\Cargar DimProducts\Grabar en la Tabla DimProducts"
+          TopLeft="208.106060606061,630.833333333333" />
+        <NodeLayout
+          Size="349,42"
+          Id="Package\Cargar DimProducts\Mezcle los elementos despues del conteo de productos"
+          TopLeft="144.621212121212,535.643939393939" />
+        <NodeLayout
+          Size="254,42"
+          Id="Package\Cargar DimProducts\Ordenar Productos Descontinuados"
+          TopLeft="0,447.272727272727" />
+        <NodeLayout
+          Size="247,42"
+          Id="Package\Cargar DimProducts\Ordenar Productos en Fabricacion"
+          TopLeft="328.181818181818,443.636363636364" />
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Row Count Output 1]"
+          TopLeft="448.296717171717,419.777777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23.8585858585859"
+              Start="0,0"
+              End="0,16.3585858585859">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.3585858585859" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Row Count Output 11]"
+          TopLeft="128.775252525253,419.638888888889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.6338383838385"
+              Start="0,0"
+              End="0,20.1338383838385">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.1338383838385" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Sort Output]"
+          TopLeft="127,489.272727272727">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="135.287878787879,46.3712121212121"
+              Start="0,0"
+              End="135.287878787879,38.8712121212121">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6957553285277" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.6957553285277"
+                    Point2="0,27.6957553285277"
+                    Point3="4,27.6957553285277" />
+                  <mssgle:LineSegment
+                    End="131.287878787879,27.6957553285277" />
+                  <mssgle:CubicBezierSegment
+                    Point1="131.287878787879,27.6957553285277"
+                    Point2="135.287878787879,27.6957553285277"
+                    Point3="135.287878787879,31.6957553285277" />
+                  <mssgle:LineSegment
+                    End="135.287878787879,38.8712121212121" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Sort Output1]"
+          TopLeft="451.681818181818,485.636363636364">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-75.7272727272727,50.0075757575759"
+              Start="0,0"
+              End="-75.7272727272727,42.5075757575759">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.8676165534409" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.8676165534409"
+                    Point2="0,29.8676165534409"
+                    Point3="-4,29.8676165534409" />
+                  <mssgle:LineSegment
+                    End="-71.7272727272727,29.8676165534409" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-71.7272727272727,29.8676165534409"
+                    Point2="-75.7272727272727,29.8676165534409"
+                    Point3="-75.7272727272727,33.8676165534409" />
+                  <mssgle:LineSegment
+                    End="-75.7272727272727,42.5075757575759" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Cargar DimProducts.Paths[Merge Output 1]"
+          TopLeft="322.613636363636,577.643939393939">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.189393939394"
+              Start="0,0"
+              End="0,45.689393939394">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.689393939394" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimProducts\Leer Tabla de Products">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Cargar DimProducts\Grabar en la Tabla DimProducts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
