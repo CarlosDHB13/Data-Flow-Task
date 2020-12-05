@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DESKTOP-6SMTV7A.Practica"
+  DTS:DTSID="{9457E4A1-B478-4C49-A486-F99FCAEB2929}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=DESKTOP-6SMTV7A;Initial Catalog=Practica;Integrated Security=True;Application Name=SSIS-Semana 10-{9457E4A1-B478-4C49-A486-F99FCAEB2929}DESKTOP-6SMTV7A.Practica;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
